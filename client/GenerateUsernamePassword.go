@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"srp/NG_values"
 )
 
 func(user *ClientDetails) GenerateUsernamePassword(tempdetails *ClientTempDetails){
@@ -9,9 +10,8 @@ func(user *ClientDetails) GenerateUsernamePassword(tempdetails *ClientTempDetail
 	fmt.Println(">>> Username and Password Generation")
 	fmt.Print("Enter Username: ")
 	fmt.Scan(&username)
-	user.Username = username
+	user.Username = NG_values.H(username)
 	fmt.Print("Enter Password: ")
 	fmt.Scan(&password)
-	status := user.computeK(tempdetails, password)
-	fmt.Println(status)
+	user.computeK(tempdetails, password)
 }

@@ -23,7 +23,7 @@ func(user *ClientDetails) ReadDetails(tempdetails *ClientTempDetails){
     fmt.Printf("G: %v\n", user.G)
     fmt.Printf("K: %v\n", user.K)
     fmt.Printf("V: %v\n", user.V)
-
+	
 	fmt.Println("\nClient Temp Details:")
     fmt.Printf("N: %v\n", tempdetails.N)
 

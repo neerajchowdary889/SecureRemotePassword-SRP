@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"srp/NG_values"
 	"srp/client"
+	"srp/server"
 	"os"
 	"time"
 	"github.com/briandowns/spinner"
@@ -34,6 +35,29 @@ func SaltandNG_generation(user *client.ClientDetails, tempdetails *client.Client
 	return false
 }
 
+func DisplayDetails(user *client.ClientDetails, tempdetails *client.ClientTempDetails){
+	fmt.Println("Do you want to check the details before sending? (y/n)")
+	var choice string
+	fmt.Scan(&choice)
+	if choice == "y"{
+		user.ReadDetails(tempdetails)
+		return
+	}else{
+		return
+	}
+}
+
+func sendToserver(user *client.ClientDetails){
+	fmt.Println(">>> Sending to server")
+	details := user.SendToServer()
+	status := server.UserSignUp(details)
+	if !status{
+		fmt.Println("Error: User details not sent to server")
+	}else{
+		fmt.Println("User details sent to server...")
+	}
+}
+
 func main(){
 	user := &client.ClientDetails{}
 	tempdetails := &client.ClientTempDetails{}
@@ -43,6 +67,9 @@ func main(){
 		fmt.Println("Error: Salt and NG values not generated")
 		os.Exit(1)
 	}
+
 	user.GenerateUsernamePassword(tempdetails)
-	user.ReadDetails(tempdetails)
+	DisplayDetails(user, tempdetails)
+
+	sendToserver(user)
 }
