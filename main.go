@@ -58,7 +58,34 @@ func sendToserver(user *client.ClientDetails){
 	}
 }
 
+func login()(*server.ServerStoringDetails, bool){
+	fmt.Println("Type out your username: ")
+	var username string
+	fmt.Scan(&username)
+	FromServer, status := server.Searchcsv(username)
+	if !status{
+		return nil, false
+	}else{
+		fmt.Println("User found...")
+		return FromServer, true
+	}
+}
+
+func checkpermission(str string)(bool){
+	fmt.Println(str)
+	var choice string
+	fmt.Scan(&choice)
+	if choice == "y"{
+		return true
+	}else{
+		return false
+	}
+}
+
 func main(){
+	if checkpermission(`>>> Do you wan to Sign Up? (y/n) 
+Note: If you're trying to signup your pc fans might kick in for few secs dont worry. 
+Note: If an error occurs, please try again. The error might be due to the number not being found within 15 seconds.`){
 	user := &client.ClientDetails{}
 	tempdetails := &client.ClientTempDetails{}
 
@@ -72,4 +99,20 @@ func main(){
 	DisplayDetails(user, tempdetails)
 
 	sendToserver(user)
+	}
+
+	if checkpermission("Do you want to login? (y/n)"){
+		ServerStoringDetails, status := login()
+		if !status{
+			fmt.Println("Error: User not found")
+		}else{
+			status := ServerStoringDetails.ServerStoredDetails()
+			if !status{
+				fmt.Println("Error: Server details not displayed")
+			}else{
+				fmt.Println("Done....")
+			}
+		}
+	}
+
 }
