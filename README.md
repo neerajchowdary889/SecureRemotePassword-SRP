@@ -1,5 +1,11 @@
 # SecureRemotePassword-SRP
 
+| Authentication technique | Speed  | Security |
+|--------------------------|--------|----------|
+| SRP                      | Slow   | High     |
+| Password Verification    | Fast   | Low      |
+| OAuth                    | Medium | Medium   |
+
 ## Zero Knowledge Proof
 A zero-knowledge proof (ZKP) is a cryptographic method by which one party (the prover) can prove to another party (the verifier) that a statement is true, without revealing any information other than the fact that the statement is true.
 *  For example, you could prove to me that you know the answer to a question by giving me a hint that only someone who knows the answer would be able to understand.
@@ -26,8 +32,3 @@ If an attacker gets into a database and steals all the authentication informatio
 
 - *Note: SRP is generally slower than other authentication techniques, such as password verification or OAuth. This is because SRP involves performing a number of cryptographic operations, such as modular exponentiation and hash functions.*
 
-| Authentication technique | Speed  | Security |
-|--------------------------|--------|----------|
-| SRP                      | Slow   | High     |
-| Password Verification    | Fast   | Low      |
-| OAuth                    | Medium | Medium   |
