@@ -30,7 +30,7 @@ SRP is a secure and efficient way to authenticate users to servers. It is used i
 
 If an attacker gets into a database and steals all the authentication information, they can only see some hashes and large 2048-bit prime numbers in case of SRP Protocol. **Current version of SRP is 6a**.
 
-- *Note: SRP is generally slower than other authentication techniques, such as password verification or OAuth. This is because SRP involves performing a number of cryptographic operations, such as modular exponentiation and hash functions.*
+> *Note: SRP is generally slower than other authentication techniques, such as password verification or OAuth. This is because SRP involves performing a number of cryptographic operations, such as modular exponentiation and hash functions.*
 
 ### Notations SRP used in this description of the protocol, version 6a
 | Number 	| Notation 	| Real Value                                                        	|
@@ -49,7 +49,7 @@ If an attacker gets into a database and steals all the authentication informatio
 
 ## How SRP works
 
-### 1. User signup
+### 1. User Signup
 - **Step 1:** Generate Q, from Q generate N.
 - **Step 2:** Compute g, Generator of the multiplicative group of N.
 - **Step 3:** Generate Salt S.
@@ -59,4 +59,5 @@ If an attacker gets into a database and steals all the authentication informatio
 - **Step 7:** Send H(Username), Salt, G, K, V to server in a single registration request.
 - **Step 8:** Server stores Salt, G, K, V indexed by Username.
 - **Step 9:** Client must not share x with anybody and must safely erase it this step. It is almost equivalent to plaintext password p.
-- *Note: **The transmission and authentication of the registration request is not covered in SRP**. We encrypt this registration request, and a key get generated on both sides using diffie helman key exchange*
+
+> *Note: **The transmission and authentication of the registration request is not covered in SRP**. We encrypt this registration request, and a key get generated on both sides using diffie helman key exchange*
