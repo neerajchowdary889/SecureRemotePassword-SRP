@@ -44,5 +44,19 @@ If an attacker gets into a database and steals all the authentication informatio
 | 7      	| I        	| Username                                                          	|
 | 8      	| P        	| Password                                                          	|
 | 9      	| x        	| x = H(S\|H(I\|":"\|P)) --> (RFC2945 standard)                     	|
-| 10     	| V        	| V = pow(g,x)                                                      	|
+| 10     	| V        	| V = (pow(g,x) mod N)                                                  |
 | 11     	| A & B    	| Random one time ephemeral keys of the user and host respectively. 	|
+
+## How SRP works
+
+### 1. User signup
+- **Step 1:** Generate Q, from Q generate N.
+- **Step 2:** Compute g, Generator of the multiplicative group of N.
+- **Step 3:** Generate Salt S.
+- **Step 4:** Take Username and Password from user.
+- **Step 5:** Compute x = H(S\|H(I\|":"\|P))
+- **Step 6:** Compute V = (pow(g,x) mod N)
+- **Step 7:** Send H(Username), Salt, G, K, V to server in a single registration request.
+- **Step 8:** Server stores Salt, G, K, V indexed by Username.
+- **Step 9:** Client must not share x with anybody and must safely erase it this step. It is almost equivalent to plaintext password p.
+- *Note: **The transmission and authentication of the registration request is not covered in SRP**. We encrypt this registration request, and a key get generated on both sides using diffie helman key exchange*
