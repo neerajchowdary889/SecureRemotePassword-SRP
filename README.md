@@ -96,5 +96,7 @@ If an attacker gets into a database and steals all the authentication informatio
 > *This shows the beauty of Zero-Knowledge Proof Protocol: that you can prove to the server that you are a legitimate user without exchanging your password.✌️*
 
 
-
 [**For more information**](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol#:~:text=6.3%20Other%20links-,Overview,the%20user%20to%20the%20server.): 👻 To learn more about SRP Protocol.
+
+---
+## How to Run Code
