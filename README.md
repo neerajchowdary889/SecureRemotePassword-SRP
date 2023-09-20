@@ -32,3 +32,17 @@ If an attacker gets into a database and steals all the authentication informatio
 
 - *Note: SRP is generally slower than other authentication techniques, such as password verification or OAuth. This is because SRP involves performing a number of cryptographic operations, such as modular exponentiation and hash functions.*
 
+### Notations SRP used in this description of the protocol, version 6a
+| Number 	| Notation 	| Real Value                                                        	|
+|--------	|----------	|-------------------------------------------------------------------	|
+| 1      	| Q        	| Large Sophie Germain Prime (over 2047 bit long)                   	|
+| 2      	| N        	| Safe Prime --> N = 2Q+1 (over 2048 bit long)                      	|
+| 3      	| g        	| Generator of the multiplicative group                             	|
+| 4      	| H()      	| Hashing technique SHA256                                          	|
+| 5      	| K        	| K = H(N,g)                                                        	|
+| 6      	| S        	| Salt (over 64 bit long)                                           	|
+| 7      	| I        	| Username                                                          	|
+| 8      	| P        	| Password                                                          	|
+| 9      	| x        	| x = H(S\|H(I\|":"\|P)) --> (RFC2945 standard)                     	|
+| 10     	| V        	| V = pow(g,x)                                                      	|
+| 11     	| A & B    	| Random one time ephemeral keys of the user and host respectively. 	|
