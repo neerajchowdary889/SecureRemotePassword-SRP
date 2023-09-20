@@ -75,10 +75,10 @@ If an attacker gets into a database and steals all the authentication informatio
 - ***Now the two parties have a shared, strong session key K. To complete authentication, they need to prove to each other that their keys match.***
 
 > ***S-client Proof***
-![S-client Proof](forReadme\ClientSideProof.jpg)
+![S-client Proof](forReadme/ClientSideProof.jpg)
 
 > ***S-server Proof***
-![S-server Proof](forReadme\ServerSideProof.jpg)
+![S-server Proof](forReadme/ServerSideProof.jpg)
 
 > *Note: Session Keys should never exchange directly. But we should prove both sides have same session keys.*
 
