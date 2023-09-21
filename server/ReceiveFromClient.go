@@ -37,6 +37,7 @@ func UserSignUp(user map[string]interface{}) bool {
         strconv.Itoa(int(user["G"].(uint8))),
         user["K"].(string),
         user["V"].(*big.Int).String(),
+        user["N"].(*big.Int).String(),
     })
     if err != nil {
         log.Fatal("Error writing to file:", err)

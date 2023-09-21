@@ -1,11 +1,11 @@
-package client
+package server
 
 import(
 	"fmt"
 	"reflect"
 )
 
-func(user *ClientDetails) checkError() (bool,string){
+func(user *ServerStoringDetails) client_checkError() (bool,string){
     val := reflect.ValueOf(user).Elem()
 
     for i := 0; i < val.NumField(); i++ {
@@ -24,8 +24,8 @@ func(user *ClientDetails) checkError() (bool,string){
     return true, ""
 }
 
-func(user *ClientDetails) SendToServer()(map[string]interface{}){
-	status, field := user.checkError()
+func(user *ServerStoringDetails) SendToClient()(map[string]interface{}){
+	status, field := user.client_checkError()
 	if !status{
 		fmt.Printf("Error: %s field is nil\n", field)
 	}else{

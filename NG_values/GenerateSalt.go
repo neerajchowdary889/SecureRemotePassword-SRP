@@ -8,7 +8,7 @@ import(
 )
 const Salt_BitSize int = 64
 
-func GenerateSalt() uint64{
+func Generate64BitNumber() uint64{
 	salt := make([]byte,Salt_BitSize)
 	_,err := rand.Read(salt)
 	if err != nil{

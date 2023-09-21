@@ -9,13 +9,14 @@ type ClientDetails struct{
 	G uint8
 	K string
 	V *big.Int
+	N *big.Int
 }
 
 type ClientTempDetails struct{
 	N *big.Int
 }
 
-func(user *ClientDetails) ReadDetails(tempdetails *ClientTempDetails){
+func(user *ClientDetails) ReadDetails(){
 
 	fmt.Println("Client Details:")
     fmt.Printf("Username: %v\n", user.Username)
@@ -25,7 +26,7 @@ func(user *ClientDetails) ReadDetails(tempdetails *ClientTempDetails){
     fmt.Printf("V: %v\n", user.V)
 	
 	fmt.Println("\nClient Temp Details:")
-    fmt.Printf("N: %v\n", tempdetails.N)
+    fmt.Printf("N: %v\n", user.N)
 
 
 }

@@ -27,7 +27,7 @@ func Searchcsv(username string)(*ServerStoringDetails, bool){
         return nil, false
     }
 
-	temp := make([]string,0,6)
+	temp := make([]string,0,7)
 
     // Search for the desired value in the CSV records
     searchValue := NG_values.H(username)
@@ -37,6 +37,7 @@ func Searchcsv(username string)(*ServerStoringDetails, bool){
                 fmt.Println("Found value:", value)
 				for _, value := range record {
 					temp = append(temp, value)
+					// fmt.Println(temp)				
 				}
 			}
         }
@@ -58,15 +59,22 @@ func Searchcsv(username string)(*ServerStoringDetails, bool){
 		fmt.Println("Error converting string to big.Int")
 		return nil, false
 	}
+	N := new(big.Int)
+	N, ok1 := N.SetString(temp[5], 10)
+	if !ok1 {
+		fmt.Println("Error converting string to big.Int")
+		return nil, false
+	}
 
-	FromServer := &ServerStoringDetails{
+	From_Server := &ServerStoringDetails{
 		Username: temp[0],
 		Salt: salt,
 		G: uint8(G),
 		K: temp[3],
 		V: V,
+		N: N,
 	}
 
-	return FromServer, true
+	return From_Server, true
 
 }

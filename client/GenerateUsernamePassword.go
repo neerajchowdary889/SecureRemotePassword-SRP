@@ -5,7 +5,7 @@ import (
 	"srp/NG_values"
 )
 
-func(user *ClientDetails) GenerateUsernamePassword(tempdetails *ClientTempDetails){
+func(user *ClientDetails) GenerateUsernamePassword(){
 	var username,password string
 	fmt.Println(">>> Username and Password Generation")
 	fmt.Print("Enter Username: ")
@@ -13,5 +13,5 @@ func(user *ClientDetails) GenerateUsernamePassword(tempdetails *ClientTempDetail
 	user.Username = NG_values.H(username)
 	fmt.Print("Enter Password: ")
 	fmt.Scan(&password)
-	user.computeK(tempdetails, password)
+	user.computeK(password)
 }
