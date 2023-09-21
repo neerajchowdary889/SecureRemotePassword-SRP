@@ -105,7 +105,7 @@ Note: If an error occurs, please try again. The error might be due to the number
 
 	// ---------------------------------------------------------------------
 
-	if checkpermission("Do you want to login? (y/n)") {
+	if checkpermission(">>>Do you want to login? (y/n)") {
 		ServerStoringDetails, status := login()
 		if !status {
 			fmt.Println("Error: User not found")
@@ -119,8 +119,13 @@ Note: If an error occurs, please try again. The error might be due to the number
 			Credentials := ServerStoringDetails.SendToClient()
 			user := client.FromServer(Credentials)
 
-			status := user.Client_Login()
-			fmt.Println(status)
+			user_tempdetails := user.GenerateA()
+			server_tempdetails := ServerStoringDetails.GenerateB()
+			
+			u_client := user_tempdetails.Client_ComputeU(server_tempdetails.B)
+			u_server := server_tempdetails.Server_ComputeU(user_tempdetails.A)
+
+			fmt.Println(u_client == u_server)
 		}
 	}
 

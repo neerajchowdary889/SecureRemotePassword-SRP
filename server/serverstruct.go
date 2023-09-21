@@ -14,7 +14,9 @@ type ServerStoringDetails struct{
 }
 
 type TempServerDetails struct{
-
+	B *big.Int
+	b uint64
+	u string
 }
 
 func(Server_user *ServerStoringDetails)PrintDetails()(bool){
