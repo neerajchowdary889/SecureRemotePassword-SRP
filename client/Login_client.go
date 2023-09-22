@@ -27,14 +27,14 @@ func (user *ClientDetails) GenerateA() *ClientTempDetails {
 
 func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) string {
 	// u = H(A | B)
+	user_tempdetails.B = B
 	u := NG_values.H(append(user_tempdetails.A.Bytes(), B.Bytes()...))
 
 	return u
 }
 
-func (user *ClientDetails) Compute_K_client(B *big.Int, user_tempdetails *ClientTempDetails) (string) {
+func (user *ClientDetails) Compute_K_client(user_tempdetails *ClientTempDetails) (string) {
 	// S = (B - kg^x) ^ (a + ux) (mod N)
-
 	var Password string
 	fmt.Println("Enter Password: ")
 	fmt.Scan(&Password)
@@ -53,7 +53,7 @@ func (user *ClientDetails) Compute_K_client(B *big.Int, user_tempdetails *Client
 	X.SetString(x, 16)
 
 	k_gx := new(big.Int).Mul(K, user.V)
-	b_k_gx := new(big.Int).Sub(B, k_gx)
+	b_k_gx := new(big.Int).Sub(user_tempdetails.B, k_gx)
 
 	ux := new(big.Int).Mul(U, X)
 	a_ux := new(big.Int).Add(new(big.Int).SetUint64(user_tempdetails.a), ux)

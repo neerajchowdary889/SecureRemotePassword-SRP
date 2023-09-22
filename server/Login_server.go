@@ -32,18 +32,19 @@ func (ServerStoringDetails *ServerStoringDetails) GenerateB() (*TempServerDetail
 
 func (server_tempdetails *TempServerDetails) Server_ComputeU(A *big.Int) (string){
 	// u = H(A | B)
+	server_tempdetails.A = A
 	u := NG_values.H(append(A.Bytes(), server_tempdetails.B.Bytes()...))
 
 	return u
 }
 
-func (server_tempdetails *TempServerDetails) Compute_K_server(A *big.Int, ServerStoringDetails *ServerStoringDetails)(string){
+func (server_tempdetails *TempServerDetails) Compute_K_server( ServerStoringDetails *ServerStoringDetails)(string){
 	// S = (A * v^u) ^ b (mod N)
 	U := new(big.Int)
 	U.SetString(server_tempdetails.u, 16)
 
 	vu := new(big.Int).Exp(ServerStoringDetails.V, U, ServerStoringDetails.N)
-	A_vu := new(big.Int).Mul(A, vu)
+	A_vu := new(big.Int).Mul(server_tempdetails.A, vu)
 
 	A_vu_b := new(big.Int).Exp(A_vu, new(big.Int).SetUint64(server_tempdetails.b), ServerStoringDetails.N)
 

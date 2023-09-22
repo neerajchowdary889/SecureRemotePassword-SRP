@@ -14,6 +14,7 @@ type ClientDetails struct{
 
 type ClientTempDetails struct{
 	A *big.Int
+	B *big.Int
 	a uint64
 	u string
 }

@@ -127,10 +127,10 @@ Note: If an error occurs, please try again. The error might be due to the number
 			u_server := server_tempdetails.Server_ComputeU(user_tempdetails.A)
 
 			if u_client == u_server {
-				K_client := user.Compute_K_client(server_tempdetails.B, user_tempdetails)
+				K_client := user.Compute_K_client(user_tempdetails)
 				fmt.Println("K-client:",K_client)
 
-				K_server := server_tempdetails.Compute_K_server(user_tempdetails.A, ServerStoringDetails)
+				K_server := server_tempdetails.Compute_K_server(ServerStoringDetails)
 				fmt.Println("\nK-server:",K_server)
 			}
 

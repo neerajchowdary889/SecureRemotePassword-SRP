@@ -14,6 +14,7 @@ type ServerStoringDetails struct{
 }
 
 type TempServerDetails struct{
+	A *big.Int
 	B *big.Int
 	b uint64
 	u string
