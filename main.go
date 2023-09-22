@@ -127,11 +127,21 @@ Note: If an error occurs, please try again. The error might be due to the number
 			u_server := server_tempdetails.Server_ComputeU(user_tempdetails.A)
 
 			if u_client == u_server {
-				K_client := user.Compute_K_client(user_tempdetails)
-				fmt.Println("K-client:",K_client)
+				user.Compute_K_client(user_tempdetails)
+				server_tempdetails.Compute_K_server(ServerStoringDetails)
+				M1 := user.GenerateM1(user_tempdetails)
+				M2 := ServerStoringDetails.GenerateM2(server_tempdetails, M1)
+				M := user.GenerateM(user_tempdetails, M1)
 
-				K_server := server_tempdetails.Compute_K_server(ServerStoringDetails)
-				fmt.Println("\nK-server:",K_server)
+				fmt.Println("M1: ", M1)
+				fmt.Println("M2: ", M2)
+				fmt.Println("M: ", M)
+
+				if M == M2{
+					fmt.Println("Permission Granted")
+				}else{
+					fmt.Println("Permission Denied")
+				}
 			}
 
 		}

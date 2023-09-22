@@ -17,6 +17,7 @@ type ClientTempDetails struct{
 	B *big.Int
 	a uint64
 	u string
+	K_client string
 }
 
 func(user *ClientDetails) ReadDetails(){
