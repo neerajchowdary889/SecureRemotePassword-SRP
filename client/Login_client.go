@@ -27,9 +27,11 @@ func (user *ClientDetails) GenerateA() (*ClientTempDetails) {
 
 func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) (string){
 	// u = H(A | B)
-	fmt.Println("Client_A: ",user_tempdetails.A,"\n")
-	fmt.Println("Client_B: ",B,"\n")
-	u := NG_values.H(append(B.Bytes(), user_tempdetails.A.Bytes()...))
+	// fmt.Println("Client_A: ",user_tempdetails.A,"\n")
+	// fmt.Printf("Client_a: %T\n",user_tempdetails.A)
+	// fmt.Println("Client_B: ",B,"\n")
+	// fmt.Printf("Client_B: %T\n",B)
+	u := NG_values.H(append(user_tempdetails.A.Bytes(), B.Bytes()...))
 	fmt.Println("Client_u: ",u)
 	return u
 }
