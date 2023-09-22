@@ -32,10 +32,6 @@ func (ServerStoringDetails *ServerStoringDetails) GenerateB() (*TempServerDetail
 
 func (server_tempdetails *TempServerDetails) Server_ComputeU(A *big.Int) (string){
 	// u = H(A | B)
-	// fmt.Println("Server_A: ",A,"\n")
-	// fmt.Printf("Server_A: %T\n",A)
-	// fmt.Println("Server_B: ",server_tempdetails.B,"\n")
-	// fmt.Printf("Server_B: %T\n",server_tempdetails.B)
 	u := NG_values.H(append(A.Bytes(), server_tempdetails.B.Bytes()...))
 	fmt.Println("Server_u: ",u)
 	return u

@@ -125,7 +125,11 @@ Note: If an error occurs, please try again. The error might be due to the number
 			u_client := user_tempdetails.Client_ComputeU(server_tempdetails.B)
 			u_server := server_tempdetails.Server_ComputeU(user_tempdetails.A)
 
-			fmt.Println(u_client == u_server)
+			if u_client == u_server {
+				status := user.Compute_K_client(server_tempdetails.B, u_client)
+				fmt.Println("\n",status)
+			}
+
 		}
 	}
 

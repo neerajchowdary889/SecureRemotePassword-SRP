@@ -27,11 +27,21 @@ func (user *ClientDetails) GenerateA() (*ClientTempDetails) {
 
 func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) (string){
 	// u = H(A | B)
-	// fmt.Println("Client_A: ",user_tempdetails.A,"\n")
-	// fmt.Printf("Client_a: %T\n",user_tempdetails.A)
-	// fmt.Println("Client_B: ",B,"\n")
-	// fmt.Printf("Client_B: %T\n",B)
 	u := NG_values.H(append(user_tempdetails.A.Bytes(), B.Bytes()...))
 	fmt.Println("Client_u: ",u)
 	return u
+}
+
+func (user *ClientDetails) Compute_K_client(B *big.Int, u string) (string){
+	// S = (B - kg^x) ^ (a + ux) (mod N)
+
+	var Password string
+	fmt.Println("Enter Password: ")
+	fmt.Scan(&Password)
+
+	x, _ := user.computeX(Password, false)
+
+	fmt.Println(x)
+
+	return "Done..."
 }
