@@ -83,6 +83,8 @@ func checkpermission(str string) bool {
 	}
 }
 
+
+
 func main() {
 
 	if checkpermission(`>>> Do you wan to Sign Up? (y/n) 
@@ -126,8 +128,11 @@ Note: If an error occurs, please try again. The error might be due to the number
 			u_server := server_tempdetails.Server_ComputeU(user_tempdetails.A)
 
 			if u_client == u_server {
-				status := user.Compute_K_client(server_tempdetails.B, u_client)
-				fmt.Println("\n",status)
+				K_client := user.Compute_K_client(server_tempdetails.B, user_tempdetails)
+				fmt.Println("K-client:",K_client)
+
+				// K_server := server_tempdetails.Compute_K_server(user_tempdetails.A)
+				// fmt.Println("\nK-server:",K_server)
 			}
 
 		}

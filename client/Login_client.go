@@ -1,21 +1,21 @@
 package client
 
 import (
+	"encoding/binary"
 	"fmt"
 	"math/big"
 	"srp/NG_values"
-	"encoding/binary"
 )
 
-func (user *ClientDetails) GenerateA() (*ClientTempDetails) {
+func (user *ClientDetails) GenerateA() *ClientTempDetails {
 
 	a := NG_values.Generate64BitNumber()
 
 	A := new(big.Int)
 	A = A.Exp(new(big.Int).SetUint64(uint64(user.G)), new(big.Int).SetUint64(a), user.N)
-	   
-    aBytes := make([]byte, 8)
-    binary.LittleEndian.PutUint64(aBytes, a)
+
+	aBytes := make([]byte, 8)
+	binary.LittleEndian.PutUint64(aBytes, a)
 
 	ClientTempDetails := &ClientTempDetails{
 		A: A,
@@ -25,15 +25,16 @@ func (user *ClientDetails) GenerateA() (*ClientTempDetails) {
 	return ClientTempDetails
 }
 
-func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) (string){
+func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) string {
 	// u = H(A | B)
 	u := NG_values.H(append(user_tempdetails.A.Bytes(), B.Bytes()...))
-	fmt.Println("Client_u: ",u)
+
 	return u
 }
 
-func (user *ClientDetails) Compute_K_client(B *big.Int, u string) (string){
+func (user *ClientDetails) Compute_K_client(B *big.Int, user_tempdetails *ClientTempDetails) (string) {
 	// S = (B - kg^x) ^ (a + ux) (mod N)
+	// we are calculating g^x here rather than taking V from user struct to avoid hashing complications
 
 	var Password string
 	fmt.Println("Enter Password: ")
@@ -43,5 +44,23 @@ func (user *ClientDetails) Compute_K_client(B *big.Int, u string) (string){
 
 	fmt.Println(x)
 
-	return "Done..."
+	K := new(big.Int)
+	K.SetString(user.K, 16)
+
+	U := new(big.Int)
+	U.SetString(user_tempdetails.u, 16)
+
+	X := new(big.Int)
+	X.SetString(x, 16)
+
+	k_gx := new(big.Int).Mul(K, user.V)
+	b_k_gx := new(big.Int).Sub(B, k_gx)
+
+	ux := new(big.Int).Mul(U, X)
+	a_ux := new(big.Int).Add(new(big.Int).SetUint64(user_tempdetails.a), ux)
+
+	S := new(big.Int).Exp(b_k_gx, a_ux, user.N)
+	K_client := NG_values.H(S.Bytes())
+
+	return K_client
 }

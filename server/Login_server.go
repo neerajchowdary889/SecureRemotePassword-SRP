@@ -1,7 +1,7 @@
 package server
 
 import (
-	"fmt"
+	// "fmt"
 	"math/big"
 	"srp/NG_values"
 )
@@ -33,6 +33,10 @@ func (ServerStoringDetails *ServerStoringDetails) GenerateB() (*TempServerDetail
 func (server_tempdetails *TempServerDetails) Server_ComputeU(A *big.Int) (string){
 	// u = H(A | B)
 	u := NG_values.H(append(A.Bytes(), server_tempdetails.B.Bytes()...))
-	fmt.Println("Server_u: ",u)
+
 	return u
 }
+
+// func (server_tempdetails *TempServerDetails) Compute_K_server(A *big.Int)(string){
+	
+// }
