@@ -37,6 +37,17 @@ func (server_tempdetails *TempServerDetails) Server_ComputeU(A *big.Int) (string
 	return u
 }
 
-// func (server_tempdetails *TempServerDetails) Compute_K_server(A *big.Int)(string){
-	
-// }
+func (server_tempdetails *TempServerDetails) Compute_K_server(A *big.Int, ServerStoringDetails *ServerStoringDetails)(string){
+	// S = (A * v^u) ^ b (mod N)
+	U := new(big.Int)
+	U.SetString(server_tempdetails.u, 16)
+
+	vu := new(big.Int).Exp(ServerStoringDetails.V, U, ServerStoringDetails.N)
+	A_vu := new(big.Int).Mul(A, vu)
+
+	A_vu_b := new(big.Int).Exp(A_vu, new(big.Int).SetUint64(server_tempdetails.b), ServerStoringDetails.N)
+
+	K_server := NG_values.H(A_vu_b.Bytes())
+
+	return K_server
+}

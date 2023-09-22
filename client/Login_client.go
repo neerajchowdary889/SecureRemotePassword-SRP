@@ -34,7 +34,6 @@ func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) string {
 
 func (user *ClientDetails) Compute_K_client(B *big.Int, user_tempdetails *ClientTempDetails) (string) {
 	// S = (B - kg^x) ^ (a + ux) (mod N)
-	// we are calculating g^x here rather than taking V from user struct to avoid hashing complications
 
 	var Password string
 	fmt.Println("Enter Password: ")
