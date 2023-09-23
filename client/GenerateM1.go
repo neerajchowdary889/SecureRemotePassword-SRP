@@ -35,14 +35,15 @@ func XOR(a, b []byte) []byte {
 }
 
 func (user *ClientDetails) GenerateM(user_tempdetails *ClientTempDetails, M_1 string) string{
-
+	// M2 = H(A | M1 | K_client)
 	M1 := new(big.Int)
-	M1.SetString(M_1, 16)
+    M1.SetString(M_1, 16)
 
-	K_client := new(big.Int)
-	M1.SetString(user_tempdetails.K_client, 16)
+    A_bytes := user_tempdetails.A.Bytes()
+    M1_bytes := M1.Bytes()
+    K_client_bigint, _ := new(big.Int).SetString(user_tempdetails.K_client, 16)
+    K_client_bytes := K_client_bigint.Bytes()
 
-	M2 := NG_values.H(append(user_tempdetails.A.Bytes(), append(M1.Bytes(), K_client.Bytes()...)...))
-	return M2
-
+    M := NG_values.H(append(A_bytes, append(M1_bytes, K_client_bytes...)...))
+	return M
 }

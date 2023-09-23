@@ -133,10 +133,6 @@ Note: If an error occurs, please try again. The error might be due to the number
 				M2 := ServerStoringDetails.GenerateM2(server_tempdetails, M1)
 				M := user.GenerateM(user_tempdetails, M1)
 
-				fmt.Println("M1: ", M1)
-				fmt.Println("M2: ", M2)
-				fmt.Println("M: ", M)
-
 				if M == M2{
 					fmt.Println("Permission Granted")
 				}else{
