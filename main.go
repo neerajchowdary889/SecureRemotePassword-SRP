@@ -90,7 +90,6 @@ func main() {
 Note: If you're trying to signup your pc fans might kick in for few secs dont worry. 
 Note: If an error occurs, please try again. The error might be due to the number not being found within 15 seconds.`) {
 		user := &client.ClientDetails{}
-		// tempdetails := &client.ClientTempDetails{}
 
 		status := SaltandNG_generation(user)
 		if !status {
@@ -111,12 +110,6 @@ Note: If an error occurs, please try again. The error might be due to the number
 		if !status {
 			fmt.Println("Error: User not found")
 		} else {
-			// status := ServerStoringDetails.PrintDetails()
-			// 	if !status{
-			// 		fmt.Println("Error: Server details not displayed")
-			// 	}else{
-			// 		fmt.Println("Done....")
-			// 	}
 			Credentials := ServerStoringDetails.SendToClient()
 			user := client.FromServer(Credentials)
 
