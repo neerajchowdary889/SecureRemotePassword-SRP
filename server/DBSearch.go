@@ -39,6 +39,9 @@ func Searchcsv(username string)(*ServerStoringDetails, bool){
 					temp = append(temp, value)
 					// fmt.Println(temp)				
 				}
+			}else{
+				fmt.Println("Error: Username not found")
+				return nil, false
 			}
         }
     }

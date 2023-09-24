@@ -100,3 +100,7 @@ If an attacker gets into a database and steals all the authentication informatio
 
 ---
 ## How to Run Code
+
+Provided Functionality is to ***1. Register 2. Login***
+
+### Register

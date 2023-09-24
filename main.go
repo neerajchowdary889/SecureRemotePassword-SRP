@@ -73,7 +73,7 @@ func login() (*server.ServerStoringDetails, bool) {
 }
 
 func checkpermission(str string) bool {
-	fmt.Println(str)
+	fmt.Printf("%v\n>>> ",str)
 	var choice string
 	fmt.Scan(&choice)
 	if choice == "y" {
@@ -105,10 +105,10 @@ Note: If an error occurs, please try again. The error might be due to the number
 
 	// ---------------------------------------------------------------------
 
-	if checkpermission(">>>Do you want to login? (y/n)") {
+	if checkpermission(">>> Do you want to login? (y/n)") {
 		ServerStoringDetails, status := login()
 		if !status {
-			fmt.Println("Error: User not found")
+			fmt.Println("Error: User not found, Register First.")
 		} else {
 			Credentials := ServerStoringDetails.SendToClient()
 			user := client.FromServer(Credentials)

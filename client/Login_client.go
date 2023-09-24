@@ -29,8 +29,6 @@ func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) string {
 	// u = H(A | B)
 	user_tempdetails.B = B
 	u := NG_values.H(append(user_tempdetails.A.Bytes(), B.Bytes()...))
-
-	fmt.Println("B:", user_tempdetails.B)
 	return u
 }
 
