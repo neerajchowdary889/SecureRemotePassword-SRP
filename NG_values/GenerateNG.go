@@ -6,9 +6,9 @@ import (
     "runtime"
     "time"
 )
-const G uint8 = 16
+
 const BitSize int = 1023
-const timer = 10*time.Second
+const timer = 15*time.Second
 
 func GenerateN() (*big.Int) {
     ch := make(chan *big.Int)

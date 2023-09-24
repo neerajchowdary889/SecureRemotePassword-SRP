@@ -60,7 +60,7 @@ func sendToserver(user *client.ClientDetails) {
 }
 
 func login() (*server.ServerStoringDetails, bool) {
-	fmt.Println("Type out your username: ")
+	fmt.Print("Type out your username: ")
 	var username string
 	fmt.Scan(&username)
 	FromServer, status := server.Searchcsv(username)

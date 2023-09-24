@@ -101,6 +101,44 @@ If an attacker gets into a database and steals all the authentication informatio
 ---
 ## How to Run Code
 
-Provided Functionality is to ***1. Register 2. Login***
+Provided Functionality is to ***1. Signup 2. Login***
 
-### Register
+### Signup
+1. Run main.go using command
+```
+go run main.go
+```
+
+2. Right after the file is executed, the code will prompt you to either sign up or skip to login.
+![Signup](forReadme/Signup.png)
+- If you enter y, then you'll get into signup portal.
+- If you enter n, then you'll get into login portal.
+> *Note: In SRP protocol, we need a long Sophie Germain prime number to start the signup process. This code will utilize all CPU cores to search for a large integer of size 1023 or 2047 bits. If an error occurs, please retry running the code.*
+
+Complete Signup Info:
+![Signup](forReadme/FullSignup.png)
+
+### Login
+1. Run main.go using command
+```
+go run main.go
+```
+
+2. You can skip signup and get to login or else you can complete signup and then come to login.
+
+3. Once you are into login portal, enter your Username.
+
+4. If the username exists in the server database, you will receive a **user found** message. You can then enter your password, and all the complex computations will occur behind the scenes. This is total abstraction.
+
+5. If username wasn't there in database then **Register first** message will be displayed.
+
+6. If the password for that specific username is correct, then permission is granted. Otherwise, permission is denied
+
+Complete Login Info:
+![Signup](forReadme/FullLogin.png)
+
+
+> ***Please note that we are using a Sophie Germain prime number of 1023 bits instead of 2047 bits because the computation time for a 2047-bit Sophie Germain prime number is significantly longer. In contrast, a 1023-bit Sophie Germain prime number takes much less time. If you wish to try a 2047-bit number, you can change BitSize const from 1023 to 2047 in the NG_values/GenerateNG.go file. You can also change search time from 15 sec to much more in timer const in NG_values/GenerateNG.go***
+
+> *2047 Bitsize prime number and timer is 25 secs.*
+![Signup](forReadme/2048_bitsize.png)

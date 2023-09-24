@@ -35,7 +35,7 @@ func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) string {
 func (user *ClientDetails) Compute_K_client(user_tempdetails *ClientTempDetails) (bool) {
 	// S = (B - kg^x) ^ (a + ux) (mod N)
 	var Password string
-	fmt.Println("Enter Password: ")
+	fmt.Print("Enter Password: ")
 	fmt.Scan(&Password)
 
 	x, _ := user.computeX(Password, false)

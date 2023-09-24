@@ -31,6 +31,7 @@ func Searchcsv(username string)(*ServerStoringDetails, bool){
 
     // Search for the desired value in the CSV records
     searchValue := NG_values.H(username)
+	found := false
     for _, record := range records {
         for _, value := range record {
             if value == searchValue {
@@ -39,12 +40,15 @@ func Searchcsv(username string)(*ServerStoringDetails, bool){
 					temp = append(temp, value)
 					// fmt.Println(temp)				
 				}
-			}else{
-				fmt.Println("Error: Username not found")
-				return nil, false
+				found = true
 			}
         }
     }
+
+	if !found {
+		fmt.Println("Error: Username not found in database")
+		return nil, false
+	}
 
 	salt, err := strconv.ParseUint(temp[1], 10, 64)
 	if err != nil {
