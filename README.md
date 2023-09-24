@@ -109,6 +109,11 @@ Provided Functionality is to ***1. Signup 2. Login***
 go run main.go
 ```
 
+- If your pc doesn't have go installed. You can run this code by using command
+```
+./main
+```
+
 2. Right after the file is executed, the code will prompt you to either sign up or skip to login.
 ![Signup](forReadme/Signup.png)
 - If you enter y, then you'll get into signup portal.
