@@ -1,4 +1,4 @@
-package main
+package Execution
 
 import (
 	"fmt"
@@ -84,7 +84,7 @@ func checkpermission(str string) bool {
 }
 
 
-func main() {
+func Execution() {
 
 	if checkpermission(`>>> Do you wan to Sign Up? (y/n) 
 Note: If you're trying to signup your pc fans might kick in for few secs dont worry. 
