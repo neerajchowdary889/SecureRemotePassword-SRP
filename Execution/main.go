@@ -14,8 +14,6 @@ import (
 
 func SaltandNG_generation(user *client.ClientDetails) bool {
 
-	fmt.Println(">>> N and G value Generation")
-
 	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
 	s.Start()
 
@@ -50,7 +48,7 @@ func DisplayDetails(user *client.ClientDetails) {
 
 func sendToserver(user *client.ClientDetails) {
 	fmt.Println(">>> Sending to server")
-	details := user.SendToServer()
+	details, _ := user.SendToServer()
 	status := server.UserSignUp(details)
 	if !status {
 		fmt.Println("Error: User details not sent to server")
@@ -59,7 +57,7 @@ func sendToserver(user *client.ClientDetails) {
 	}
 }
 
-func login() (*server.ServerStoringDetails, bool) {
+func Login() (*server.ServerStoringDetails, bool) {
 	fmt.Print("Type out your username: ")
 	var username string
 	fmt.Scan(&username)
@@ -96,8 +94,15 @@ Note: If an error occurs, please try again. The error might be due to the number
 			fmt.Println("Error: Salt and NG values not generated")
 			os.Exit(1)
 		}
+		var username,password string
+		fmt.Println(">>> Username and Password Generation")
+		fmt.Print("Enter Username: ")
+		fmt.Scan(&username)
+		fmt.Print("Enter Password: ")
+		fmt.Scan(&password)
+		
 
-		user.GenerateUsernamePassword()
+		user.GenerateUsernamePassword(username, password)
 		DisplayDetails(user)
 
 		sendToserver(user)
@@ -106,10 +111,11 @@ Note: If an error occurs, please try again. The error might be due to the number
 	// ---------------------------------------------------------------------
 
 	if checkpermission(">>> Do you want to login? (y/n)") {
-		ServerStoringDetails, status := login()
+		ServerStoringDetails, status := Login()
 		if !status {
 			fmt.Println("Error: User not found, Register First.")
 		} else {
+
 			Credentials := ServerStoringDetails.SendToClient()
 			user := client.FromServer(Credentials)
 
@@ -120,7 +126,9 @@ Note: If an error occurs, please try again. The error might be due to the number
 			u_server := server_tempdetails.Server_ComputeU(user_tempdetails.A)
 
 			if u_client == u_server {
-				user.Compute_K_client(user_tempdetails)
+				var Password string
+				fmt.Scan(&Password)
+				user.Compute_K_client(user_tempdetails, Password)
 				server_tempdetails.Compute_K_server(ServerStoringDetails)
 				M1 := user.GenerateM1(user_tempdetails)
 				M2 := ServerStoringDetails.GenerateM2(server_tempdetails, M1)

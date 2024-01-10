@@ -24,10 +24,10 @@ func(user *ClientDetails) checkError() (bool,string){
     return true, ""
 }
 
-func(user *ClientDetails) SendToServer()(map[string]interface{}){
+func(user *ClientDetails) SendToServer()(map[string]interface{}, error){
 	status, field := user.checkError()
 	if !status{
-		fmt.Printf("Error: %s field is nil\n", field)
+		return nil, fmt.Errorf("error: %s field is nil", field)
 	}else{
 		//converting struct to hashmap
 		hashmap := make(map[string]interface{})
@@ -44,8 +44,7 @@ func(user *ClientDetails) SendToServer()(map[string]interface{}){
 
 			
 		}
-		return hashmap
+		return hashmap, nil
 
 	}
-	return nil
 }

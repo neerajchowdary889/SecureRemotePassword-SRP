@@ -5,16 +5,94 @@ import (
     "math/big"
     "runtime"
     "time"
+    "sync"
 )
 
 const BitSize int = 1023
 const timer = 15*time.Second
 
+// func GenerateN() (*big.Int) {
+//     ch := make(chan *big.Int)
+//     for i := 0; i < runtime.NumCPU(); i++ {
+//         go searchSophieGermainPrime(ch)
+//     }
+//     for {
+//         select {
+//         case Q := <-ch:
+//             if Q != nil {
+//                 twoQPlusOne := new(big.Int).Mul(Q, big.NewInt(2))
+//                 twoQPlusOne.Add(twoQPlusOne, big.NewInt(1))
+//                 return twoQPlusOne
+//             }
+//         case <-time.After(timer):
+//             return nil
+//         }
+//     }
+// }
+
+// func GenerateN() (*big.Int) {
+//     ch := make(chan *big.Int)
+//     var wg sync.WaitGroup
+
+//     for i := 0; i < runtime.NumCPU(); i++ {
+//         wg.Add(1)
+//         go func() {
+//             searchSophieGermainPrime(ch)
+//             wg.Done()
+//         }()
+//     }
+
+//     go func() {
+//         wg.Wait()
+//         close(ch)
+//     }()
+
+//     for Q := range ch {
+//         if Q != nil {
+//             twoQPlusOne := new(big.Int).Mul(Q, big.NewInt(2))
+//             twoQPlusOne.Add(twoQPlusOne, big.NewInt(1))
+//             return twoQPlusOne
+//         }
+//     }
+
+//     return nil
+// }
+
+// func searchSophieGermainPrime(ch chan<- *big.Int) {
+//     for {
+//         Q, err := rand.Prime(rand.Reader, BitSize)
+//         if err != nil {
+//             ch <- nil
+//             return
+//         }
+//         if validSophieGermain(Q) {
+//             ch <- Q
+//             return
+//         }
+//     }
+// }
+
 func GenerateN() (*big.Int) {
     ch := make(chan *big.Int)
+    var wg sync.WaitGroup
+    done := make(chan bool)
+
     for i := 0; i < runtime.NumCPU(); i++ {
-        go searchSophieGermainPrime(ch)
+        wg.Add(1)
+        go func() {
+            searchSophieGermainPrime(ch, done)
+            wg.Done()
+        }()
     }
+
+    go func() {
+        wg.Wait()
+        close(ch)
+    }()
+
+    Timer := time.NewTimer(timer)
+    defer Timer.Stop()
+
     for {
         select {
         case Q := <-ch:
@@ -23,26 +101,31 @@ func GenerateN() (*big.Int) {
                 twoQPlusOne.Add(twoQPlusOne, big.NewInt(1))
                 return twoQPlusOne
             }
-        case <-time.After(timer):
+        case <-Timer.C:
+            close(done)
             return nil
         }
     }
 }
 
-func searchSophieGermainPrime(ch chan<- *big.Int) {
+func searchSophieGermainPrime(ch chan<- *big.Int, done <-chan bool) {
     for {
-        Q, err := rand.Prime(rand.Reader, BitSize)
-        if err != nil {
-            ch <- nil
+        select {
+        case <-done:
             return
-        }
-        if validSophieGermain(Q) {
-            ch <- Q
-            return
+        default:
+            Q, err := rand.Prime(rand.Reader, BitSize)
+            if err != nil {
+                ch <- nil
+                return
+            }
+            if validSophieGermain(Q) {
+                ch <- Q
+                return
+            }
         }
     }
 }
-
 func validSophieGermain(Q *big.Int) bool {
     twoPPlusOne := new(big.Int).Mul(Q, big.NewInt(2))
     twoPPlusOne.Add(twoPPlusOne, big.NewInt(1))

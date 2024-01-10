@@ -2,7 +2,7 @@ package client
 
 import (
 	"encoding/binary"
-	"fmt"
+	// "fmt"
 	"math/big"
 	"srp/NG_values"
 )
@@ -32,11 +32,8 @@ func (user_tempdetails *ClientTempDetails) Client_ComputeU(B *big.Int) string {
 	return u
 }
 
-func (user *ClientDetails) Compute_K_client(user_tempdetails *ClientTempDetails) (bool) {
+func (user *ClientDetails) Compute_K_client(user_tempdetails *ClientTempDetails, Password string) (bool) {
 	// S = (B - kg^x) ^ (a + ux) (mod N)
-	var Password string
-	fmt.Print("Enter Password: ")
-	fmt.Scan(&Password)
 
 	x, _ := user.computeX(Password, false)
 
