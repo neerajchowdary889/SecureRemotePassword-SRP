@@ -57,10 +57,8 @@ func sendToserver(user *client.ClientDetails) {
 	}
 }
 
-func Login() (*server.ServerStoringDetails, bool) {
-	fmt.Print("Type out your username: ")
-	var username string
-	fmt.Scan(&username)
+func Login(username string) (*server.ServerStoringDetails, bool) {
+
 	FromServer, status := server.Searchcsv(username)
 	if !status {
 		return nil, false
@@ -111,7 +109,10 @@ Note: If an error occurs, please try again. The error might be due to the number
 	// ---------------------------------------------------------------------
 
 	if checkpermission(">>> Do you want to login? (y/n)") {
-		ServerStoringDetails, status := Login()
+		fmt.Print("Type out your username: ")
+		var username string
+		fmt.Scan(&username)
+		ServerStoringDetails, status := Login(username)
 		if !status {
 			fmt.Println("Error: User not found, Register First.")
 		} else {

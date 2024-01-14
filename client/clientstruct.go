@@ -3,6 +3,7 @@ import(
 	"math/big"
 	"fmt"
 )
+
 type ClientDetails struct{
 	Username string
 	Salt uint64

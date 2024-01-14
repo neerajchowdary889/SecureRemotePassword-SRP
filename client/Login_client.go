@@ -60,3 +60,7 @@ func (user *ClientDetails) Compute_K_client(user_tempdetails *ClientTempDetails,
 	user_tempdetails.K_client = K_client
 	return true
 }
+
+func (user_tempdetails *ClientTempDetails) Get_a() uint64{
+	return user_tempdetails.a
+}
