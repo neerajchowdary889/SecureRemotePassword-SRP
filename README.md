@@ -45,7 +45,7 @@ If an attacker gets into a database and steals all the authentication informatio
 | 9      	| x        	| x = H(S\|H(I\|":"\|P)) --> (RFC2945 standard)                     	|
 | 10     	| V        	| V = pow(g,x)                                                      	|
 | 11     	| A & B    	| Random one time ephemeral keys of the user and host respectively. 	|
-| 12     	| K        	| Session Key.                                                      	|
+| 12     	| K-Client, K-server        	| Session Keys.                                                      	|
 
 ## How SRP works
 
