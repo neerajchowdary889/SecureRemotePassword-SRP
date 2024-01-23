@@ -13,12 +13,19 @@ type ClientDetails struct{
 	N *big.Int
 }
 
+// type ClientTempDetails struct{
+// 	A *big.Int
+// 	B *big.Int
+// 	a uint64
+// 	u string
+// 	K_client string
+// }
 type ClientTempDetails struct{
-	A *big.Int
-	B *big.Int
-	a uint64
-	u string
-	K_client string
+	A *big.Int 		`json:"A"`
+	B *big.Int 		`json:"B"`
+	a uint64   		`json:"a"`
+	u string   		`json:"u"`
+	K_client string `json:"K_client"`
 }
 
 func(user *ClientDetails) ReadDetails(){

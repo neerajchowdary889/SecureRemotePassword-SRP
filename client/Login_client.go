@@ -2,7 +2,6 @@ package client
 
 import (
 	"encoding/binary"
-	// "fmt"
 	"math/big"
 	"srp/NG_values"
 )
@@ -16,7 +15,6 @@ func (user *ClientDetails) GenerateA() *ClientTempDetails {
 
 	aBytes := make([]byte, 8)
 	binary.LittleEndian.PutUint64(aBytes, a)
-
 	ClientTempDetails := &ClientTempDetails{
 		A: A,
 		a: a,
@@ -63,4 +61,12 @@ func (user *ClientDetails) Compute_K_client(user_tempdetails *ClientTempDetails,
 
 func (user_tempdetails *ClientTempDetails) Get_a() uint64{
 	return user_tempdetails.a
+}
+
+func (user_tempdetails *ClientTempDetails) Set_a(a uint64) {
+    user_tempdetails.a = a
+}
+
+func (user_tempdetails *ClientTempDetails) Set_u(u string) {
+    user_tempdetails.u = u
 }

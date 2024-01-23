@@ -53,3 +53,17 @@ func (server_tempdetails *TempServerDetails) Compute_K_server( ServerStoringDeta
 	server_tempdetails.K_server = K_server
 	return true
 }
+
+func Server_ComputeU_test(A *big.Int, B *big.Int) (string){
+	// u = H(A | B)
+	u := NG_values.H(append(A.Bytes(), B.Bytes()...))
+	return u
+}
+
+func SetU(server_tempdetails *TempServerDetails, value string) {
+    server_tempdetails.u = value
+}
+
+func GetU(server_tempdetails *TempServerDetails) string{
+	return server_tempdetails.u
+}

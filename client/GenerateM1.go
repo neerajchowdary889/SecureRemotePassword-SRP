@@ -40,7 +40,9 @@ func (user *ClientDetails) GenerateM(user_tempdetails *ClientTempDetails, M_1 st
     M1.SetString(M_1, 16)
 
     A_bytes := user_tempdetails.A.Bytes()
+
     M1_bytes := M1.Bytes()
+
     K_client_bigint, _ := new(big.Int).SetString(user_tempdetails.K_client, 16)
     K_client_bytes := K_client_bigint.Bytes()
 
